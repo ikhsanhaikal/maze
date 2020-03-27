@@ -43,64 +43,72 @@ for (let i = 0; i < G.length; i++) {
   let arr = [];
   for (let j = 0; j < G[0].length; j++) {
     arr.push ( {
-      row: null,
-      nth: null,
+      row: i,
+      nth: j,
       predecessor: null,
       visited: null
     });
   }
   visited.push(arr);
 }
-const start = {row: 0, nth: 1, predecessor: 0, visited: null};
+const start = visited[0][1];
+start.visited = true;
 queue.push(start);
 //------------------------------------------------------------------------------
+
 button.addEventListener('click', ()=> {
-while (queue.length) {
-  let u = queue.shift();
-  let c = document.getElementById(`${u.row}-${u.nth}`);
-  visited[u.row][u.nth].visited = true;
-  if (c.textContent === '#') {
-    c.style.backgroundColor = 'salmon';
-    c.style.color = 'white';
-  }
-  else
-    c.style.backgroundColor = 'lightyellow';
-  //up
-  // if (c.textContent === 'E') { break; }
-  if (u.row - 1 >= 0) {
-    if (visited[u.row][u.nth].visited == null) {
-      let v = {row: u.row - 1, nth: u.nth, predecessor: [u.row, u.nth], visited: null};
-      if (v.visited === null) {
-        queue.push(v);
+  let timerId = setInterval(function() {
+    //while (queue.length)
+    if (queue.length){
+      let u = queue.shift();
+      let c = document.getElementById(`${u.row}-${u.nth}`);
+
+
+      if (c.textContent === '#') {
+        // c.style.backgroundColor = 'salmon';
+        // c.style.color = 'white';
+        c.classList.toggle('on');
       }
-    }
-  }
-  //right
-  if (u.nth + 1 < G[0].length) {
-    if (visited[u.row][u.nth+1].visited == null) {
-      let v = {row: u.row, nth: u.nth + 1, predecessor: [u.row, u.nth], visited: null};
-      if (v.visited === null) {
-        queue.push(v);
+      else
+        c.style.backgroundColor = 'lightyellow';
+      //up
+      console.log(u);
+      if (u.row - 1 >= 0) {
+        if (visited[u.row][u.nth].visited == null) {
+          let v = visited[u.row - 1][u.nth];
+          v.predecessor = [u.row, u.nth];
+          v.visited = true;
+          queue.push(v);
+        }
       }
-    }
-  }
-  //down
-  if (u.row + 1 < G.length) {
-    if (visited[u.row+1][u.nth].visited == null) {
-      let v = {row: u.row + 1, nth: u.nth, predecessor: [u.row, u.nth], visited: null};
-      if (v.visited === null) {
-        queue.push(v);
+      //right
+      if (u.nth + 1 < G[0].length) {
+        if (visited[u.row][u.nth+1].visited == null) {
+          let v = visited[u.row][u.nth + 1];
+          v.predecessor = [u.row, u.nth];
+          v.visited = true;
+          queue.push(v);
+        }
       }
-    }
-   }
-  //left
-   if (u.nth - 1 >= 0) {
-     if (visited[u.row][u.nth - 1].visited == null){
-       let v = {row: u.row, nth: u.nth - 1, predecessor: [u.row, u.nth], visited: null};
-       if (v.visited === null) {
-         queue.push(v);
+      //down
+      if (u.row + 1 < G.length) {
+        if (visited[u.row+1][u.nth].visited == null) {
+          let v = visited[u.row + 1][u.nth];
+          v.predecessor = [u.row, u.nth];
+          v.visited = true;
+          queue.push(v);
+        }
        }
-     }
-   }
-}
+      //left
+       if (u.nth - 1 >= 0) {
+         if (visited[u.row][u.nth - 1].visited == null){
+           let v = visited[u.row][u.nth - 1];
+           v.predecessor = [u.row, u.nth];
+           v.visited = true;
+           queue.push(v);
+         }
+       }
+    } else {clearInterval(timerId);}
+  }, 1000);
+
 });
