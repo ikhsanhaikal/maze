@@ -23,13 +23,16 @@ h1 {
   align-items: center;
   font-size: 30px;
   transition: background-color;
+  transition: box-shadow;
   transition-delay: 0.5;
   transition-duration: 1s;
 }
 
-.on {
-  background-color: salmon;
+.check {
+  background-color: lightgreen;
+  box-shadow: 1px 2px 2px black;
 }
+
 
 .start {
   font-size: 30px;
