@@ -22,6 +22,10 @@ container.style.width = `${100 * G[0].length}px`;
 container.style.gridTemplateColumns = `repeat(${G[0].length}, 100px)`;
 document.body.appendChild(container);
 
+reloadButton.addEventListener('click', (e) => {
+  location.reload();
+});
+
 function interactive(e) {
   const [row, col] = e.target.id.split("-");
   if (e.target.textContent == ".") {
@@ -42,13 +46,13 @@ function interactive(e) {
     G[row][col] = 's';
     startIndex = [row, col];
   } else if (e.target.textContent == "S") {
-    e.target.style.backgroundColor = "white";
+    e.target.style.backgroundColor = "rgba(237, 237, 237, 0.605)";
     e.target.textContent = ".";
     e.target.style.color = 'black';
     G[row][col] = 1;
     startIndex = null;
   } else {
-    e.target.style.backgroundColor = "white";
+    e.target.style.backgroundColor = "rgba(237, 237, 237, 0.605)";
     e.target.textContent = ".";
     e.target.style.color = 'black';
     G[row][col] = 1;
@@ -67,6 +71,7 @@ for (let row of G) {
     cell.addEventListener('click', interactive)
     if (node == 1) {
       cell.textContent = '.';
+      cell.style.background = 'rgba(237, 237, 237, 0.605)';
     }
     else if (node == 's') {
       cell.textContent = 'S';

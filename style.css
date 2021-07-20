@@ -1,5 +1,8 @@
 
-body { font-family: 'Roboto mono', monospace; }
+body { 
+  font-family: 'Roboto mono', monospace; 
+  background-color: rgba(237, 237, 237, 0.605);
+}
 
 h1 {
   background-color: lightblue;
@@ -9,15 +12,24 @@ h1 {
   border-radius: 15px;
 }
 
-.container {
+.container { 
+  margin: 0 auto; 
+  box-shadow: 2px 2px 3px black;
+}
+
+.controller {
+  /* border: 1px solid red;  */
+  display: flex;
+  position: relative;
+  top: 50px;
+  justify-content: space-evenly;
   margin: 0 auto;
-  /* border: 1px solid red; */
+  width: 500px;
 }
 
 .cell {
   width: 100px;
   height: 100px;
-  /* border: 1px solid lightgrey; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,9 +42,8 @@ h1 {
 
 .check {
   background-color: lightgreen;
-  box-shadow: 1px 2px 2px black;
+  box-shadow: 1px 5px 5px black;
 }
-
 
 .start {
   font-size: 20px;
@@ -42,7 +53,6 @@ h1 {
 .reload {
   font-size: 20px;
   width: 80px;
-  display: none;
 }
 
 textarea {
