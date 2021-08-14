@@ -1,6 +1,5 @@
-
-body { 
-  font-family: 'Roboto mono', monospace; 
+body {
+  font-family: "Roboto mono", monospace;
   background-color: rgba(237, 237, 237, 0.605);
 }
 
@@ -12,9 +11,9 @@ h1 {
   border-radius: 15px;
 }
 
-.container { 
-  margin: 0 auto; 
-  box-shadow: 2px 2px 3px black;
+.container {
+  margin: 0 auto;
+  box-shadow: 1px 1px 5px black;
 }
 
 .controller {
@@ -38,6 +37,7 @@ h1 {
   transition: box-shadow;
   transition-delay: 0.5;
   transition-duration: 1s;
+  user-select: none;
 }
 
 .check {

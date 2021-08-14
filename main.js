@@ -1,28 +1,28 @@
 let G = [
-  ['s', 0, 0, 0, 0, 0, 1],
+  ["s", 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 0, 1, 0, 1],
   [0, 0, 1, 0, 1, 0, 1],
   [1, 0, 1, 1, 1, 1, 1],
   [1, 0, 1, 0, 0, 1, 0],
   [1, 1, 1, 1, 0, 1, 0],
-  [1, 1, 1, 1, 0, 1, 'e']
-]
+  [1, 1, 1, 1, 0, 1, "e"],
+];
 
 //check if neighbour # don't add to queue just
 //set visited to true and change the color to red
 
-const container = document.createElement('div');
-const startButton = document.querySelector('.start');
-const reloadButton = document.querySelector('.reload');
+const container = document.createElement("div");
+const startButton = document.querySelector(".start");
+const reloadButton = document.querySelector(".reload");
 
-container.classList.add('container');
-container.style.display = 'grid';
+container.classList.add("container");
+container.style.display = "grid";
 container.style.margin = `100px auto`;
 container.style.width = `${100 * G[0].length}px`;
 container.style.gridTemplateColumns = `repeat(${G[0].length}, 100px)`;
 document.body.appendChild(container);
 
-reloadButton.addEventListener('click', (e) => {
+reloadButton.addEventListener("click", (e) => {
   location.reload();
 });
 
@@ -31,30 +31,29 @@ function interactive(e) {
   if (e.target.textContent == ".") {
     e.target.style.backgroundColor = "black";
     e.target.textContent = "#";
+    e.target.style.color = "black";
     G[row][col] = 0;
-  }
-  else if (e.target.textContent == "#") {
+  } else if (e.target.textContent == "#") {
     e.target.style.backgroundColor = "red";
     e.target.textContent = "E";
-    e.target.style.color = 'white';
-    G[row][col] = 'e';
-  }
-  else if (e.target.textContent == "E" && startIndex == null) {
+    e.target.style.color = "white";
+    G[row][col] = "e";
+  } else if (e.target.textContent == "E" && startIndex == null) {
     e.target.style.backgroundColor = "blue";
     e.target.textContent = "S";
-    e.target.style.color = 'white';
-    G[row][col] = 's';
+    e.target.style.color = "white";
+    G[row][col] = "s";
     startIndex = [row, col];
   } else if (e.target.textContent == "S") {
     e.target.style.backgroundColor = "rgba(237, 237, 237, 0.605)";
     e.target.textContent = ".";
-    e.target.style.color = 'black';
+    e.target.style.color = "rgba(237, 237, 237, 0.605)";
     G[row][col] = 1;
     startIndex = null;
   } else {
     e.target.style.backgroundColor = "rgba(237, 237, 237, 0.605)";
     e.target.textContent = ".";
-    e.target.style.color = 'black';
+    e.target.style.color = "rgba(237, 237, 237, 0.605)";
     G[row][col] = 1;
   }
 }
@@ -65,27 +64,25 @@ let startIndex = [0, 0];
 for (let row of G) {
   let j = 0;
   for (let node of row) {
-    const cell = document.createElement('div');
-    cell.classList.add('cell');
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
     cell.id = `${i}-${j}`;
-    cell.addEventListener('click', interactive)
+    cell.addEventListener("click", interactive);
     if (node == 1) {
-      cell.textContent = '.';
-      cell.style.background = 'rgba(237, 237, 237, 0.605)';
-    }
-    else if (node == 's') {
-      cell.textContent = 'S';
-      cell.style.background = 'blue';
-      cell.style.color = 'white';
-    }
-    else if (node == 'e') {
-      cell.textContent = 'E';
-      cell.style.background = 'red';
-      cell.style.color = 'white';
-    }
-    else {
-      cell.textContent = '#';
-      cell.style.background = 'black';
+      cell.textContent = ".";
+      cell.style.background = "rgba(237, 237, 237, 0.605)";
+      cell.style.color = "rgba(237, 237, 237, 0.605)";
+    } else if (node == "s") {
+      cell.textContent = "S";
+      cell.style.background = "blue";
+      cell.style.color = "white";
+    } else if (node == "e") {
+      cell.textContent = "E";
+      cell.style.background = "red";
+      cell.style.color = "white";
+    } else {
+      cell.textContent = "#";
+      cell.style.background = "black";
     }
     container.appendChild(cell);
     j++;
@@ -93,8 +90,7 @@ for (let row of G) {
   i++;
 }
 
-
-startButton.addEventListener('click', (e) => {
+startButton.addEventListener("click", (e) => {
   e.target.disabled = true;
   let queue = [];
   let visited = [];
@@ -106,7 +102,7 @@ startButton.addEventListener('click', (e) => {
         row: i,
         nth: j,
         predecessor: null,
-        visited: null
+        visited: null,
       });
     }
     visited.push(arr);
@@ -120,19 +116,19 @@ startButton.addEventListener('click', (e) => {
     if (queue.length && !found) {
       let u = queue.shift();
       let c = document.getElementById(`${u.row}-${u.nth}`);
-      if (c.textContent !== '#' && c.textContent !== 'S') {
-        c.style.backgroundColor = '#FFFF66';
-      }
-      if (c.textContent === 'E') {
+      if (c.textContent === "E") {
         coord = [u.row, u.nth];
         found = true;
+        c.style.backgroundColor = "orange";
+      } else if (c.textContent !== "#" && c.textContent !== "S") {
+        c.style.backgroundColor = "#FFFF66";
       }
       //up
       if (u.row - 1 >= 0) {
         if (visited[u.row - 1][u.nth].visited == null) {
           let v = visited[u.row - 1][u.nth];
           let n = document.getElementById(`${u.row - 1}-${u.nth}`);
-          if (n.textContent !== '#') {
+          if (n.textContent !== "#") {
             v.predecessor = [u.row, u.nth];
             v.visited = true;
             queue.push(v);
@@ -144,7 +140,7 @@ startButton.addEventListener('click', (e) => {
         if (visited[u.row][u.nth + 1].visited == null) {
           let v = visited[u.row][u.nth + 1];
           let n = document.getElementById(`${u.row}-${u.nth + 1}`);
-          if (n.textContent !== '#') {
+          if (n.textContent !== "#") {
             v.predecessor = [u.row, u.nth];
             v.visited = true;
             queue.push(v);
@@ -156,7 +152,7 @@ startButton.addEventListener('click', (e) => {
         if (visited[u.row + 1][u.nth].visited == null) {
           let v = visited[u.row + 1][u.nth];
           let n = document.getElementById(`${u.row + 1}-${u.nth}`);
-          if (n.textContent !== '#') {
+          if (n.textContent !== "#") {
             v.predecessor = [u.row, u.nth];
             v.visited = true;
             queue.push(v);
@@ -168,7 +164,7 @@ startButton.addEventListener('click', (e) => {
         if (visited[u.row][u.nth - 1].visited == null) {
           let v = visited[u.row][u.nth - 1];
           let n = document.getElementById(`${u.row}-${u.nth - 1}`);
-          if (n.textContent !== '#') {
+          if (n.textContent !== "#") {
             v.predecessor = [u.row, u.nth];
             v.visited = true;
             queue.push(v);
@@ -178,15 +174,22 @@ startButton.addEventListener('click', (e) => {
     } else {
       let x = coord[0];
       let y = coord[1];
-      console.log('before' + x + ' ' + y);
+      // console.log("before" + x + " " + y);
       let timeout = setInterval(function () {
-        if (visited[x][y].predecessor !== null) {
+        if (coord.length !== 0) {
           const b = document.getElementById(`${x}-${y}`);
-          coord = visited[x][y].predecessor;
-          b.style.backgroundColor = 'green';
+          if (b.textContent === "S") {
+            b.style.backgroundColor = "orange";
+          } else if (b.textContent !== "E") {
+            b.style.backgroundColor = "green";
+            b.style.color = "green";
+          }
+          coord = visited[x][y].predecessor || [];
           x = coord[0];
           y = coord[1];
-        } else { clearInterval(timeout); }
+        } else {
+          clearInterval(timeout);
+        }
       }, 300);
 
       clearInterval(timerId);
