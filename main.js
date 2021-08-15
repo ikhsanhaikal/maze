@@ -91,7 +91,7 @@ for (let row of G) {
 }
 
 startButton.addEventListener("click", (e) => {
-  e.target.disabled = true;
+  startButton.disabled = true;
   let queue = [];
   let visited = [];
   let coord;

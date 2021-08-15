@@ -48,11 +48,13 @@ h1 {
 .start {
   font-size: 20px;
   width: 80px;
+  user-select: none;
 }
 
 .reload {
   font-size: 20px;
   width: 80px;
+  user-select: none;
 }
 
 textarea {
